@@ -2,6 +2,8 @@ const express = require("express") // dependency // require express from node mo
 const app = express() // configuration // storing an instance of express in our app variable 
 const animesController = require("./controllers/animes")
 
+app.use(express.json()); // parse body of data into json object
+
 // any function with access to the request and response object is called middleware
 app.get("/", (request, response)=>{
     // console.log(request)
