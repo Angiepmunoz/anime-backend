@@ -65,6 +65,24 @@ animes.delete("/:id", (request, response) => {
   }
 });
 
+//update One Anime: "/anines/:id"
+
+animes.put("/:id", (request, response) => {
+  try {
+    const { id } = request.params; // desctructuring id for the anime we're updating
+    const anime = request.body; // req.body provides the anime with the updates
+    const index = animesArr.findIndex((anime) => Number(id) === anime.id); // we're using the id to find the index
+    if (index !== -1) {
+      animesArr.splice(index, 1, anime); // replace the anime with the updated anime object
+      response.status(201).json(animesArr);
+    } else {
+      throw "could not update anime"; // triggering an error
+    }
+  } catch (error) {
+    response.status(400).json({ error });
+  }
+});
+
 module.exports = animes;
 
 // orders
