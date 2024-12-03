@@ -6,7 +6,8 @@
   "scripts": {
     "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "db:schema": "psql -U postgres -f db/schema.sql"
+    "db:schema": "psql -U postgres -f db/schema.sql",
+    "db:seed": "psql -U postgres -f db/seed.sql"
   },
   "author": "",
   "license": "ISC",
