@@ -1,7 +1,10 @@
 const app = require("./app")
+require("dotenv").config() // configuration 
 
-app.listen(3333, ()=>{ // listens for a request at a specific port
-    console.log(`I'm listening at PORT 3333`);
+const PORT = process.env.PORT
+
+app.listen(PORT, ()=>{ // listens for a request at a specific port
+    console.log(`I'm listening at PORT ${PORT}`);
 })
 
 // your server must be running in order to make a request
