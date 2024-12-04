@@ -9,6 +9,7 @@ const {
 animes.get("/", async (req, res) => {
   try {
     const animes = await getAllAnimes();
+    console.log(animes)
     res.status(200).json({payload: animes})
   } catch(error){
     res.status(404).json({payload: error})
