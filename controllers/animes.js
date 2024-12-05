@@ -4,40 +4,62 @@ const animes = express.Router(); // express.Router allows us to have almost a mi
 const {
   getAllAnimes,
   getOneAnime,
-  createOneAnime
-} = require("../queries/animes")
-
+  createOneAnime,
+  updateOneAnime,
+  deleteOneAnime
+} = require("../queries/animes");
 
 animes.get("/", async (req, res) => {
   try {
     const animes = await getAllAnimes();
-    console.log(animes)
-    res.status(200).json({payload: animes})
-  } catch(error){
-    res.status(404).json({payload: error})
+    console.log(animes);
+    res.status(200).json({ payload: animes });
+  } catch (error) {
+    res.status(404).json({ payload: error });
   }
 });
 
-animes.get("/:id", async (req, res) =>{
+animes.get("/:id", async (req, res) => {
   try {
-    const {id} = req.params;
+    // console.log("id param: ", req.params)
+    const { id } = req.params;
     const anime = await getOneAnime(id);
-    res.status(200).json({payload: anime});
+    res.status(200).json({ payload: anime });
   } catch (error) {
-    res.status(404).json({payload: error})
+    res.status(404).json({ payload: error });
   }
-})
+});
 
-animes.post("/", async (req, res) =>{
+animes.post("/", async (req, res) => {
   try {
     const anime = req.body;
-    const newAnime = await createOneAnime(anime)
-    res.status(201).json({payload: newAnime})
+    const newAnime = await createOneAnime(anime);
+    res.status(201).json({ payload: newAnime });
   } catch (error) {
-    res.status(404).json({payload: error})
+    res.status(404).json({ payload: error });
+  }
+});
+
+animes.put("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const anime = req.body;
+    const updatedAnime = await updateOneAnime(id, anime);
+    res.status(200).json({ payload: updatedAnime });
+  } catch (error) {
+    res.status(404).json({ payload: error });
+  }
+});
+
+animes.delete("/:id", async (req, res) => {
+  try {
+    const {id} = req.params;
+    const deletedAnime = await deleteOneAnime(id);
+    res.status(200).json({payload: deletedAnime})
+  } catch (error) {
+    res.status(404).json({payload: error});
   }
 })
-
 
 /*
 // get All Anime : "/animes"
