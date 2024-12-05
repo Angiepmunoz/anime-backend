@@ -2,7 +2,9 @@ const express = require("express");
 const animes = express.Router(); // express.Router allows us to have almost a mini-app for one resource in one place, insted of having them all in the same place
 // const animesArr = require("../data/animes");
 const {
-  getAllAnimes
+  getAllAnimes,
+  getOneAnime,
+  createOneAnime
 } = require("../queries/animes")
 
 
@@ -12,6 +14,26 @@ animes.get("/", async (req, res) => {
     console.log(animes)
     res.status(200).json({payload: animes})
   } catch(error){
+    res.status(404).json({payload: error})
+  }
+});
+
+animes.get("/:id", async (req, res) =>{
+  try {
+    const {id} = req.params;
+    const anime = await getOneAnime(id);
+    res.status(200).json({payload: anime});
+  } catch (error) {
+    res.status(404).json({payload: error})
+  }
+})
+
+animes.post("/", async (req, res) =>{
+  try {
+    const anime = req.body;
+    const newAnime = await createOneAnime(anime)
+    res.status(201).json({payload: newAnime})
+  } catch (error) {
     res.status(404).json({payload: error})
   }
 })
